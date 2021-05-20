@@ -10,6 +10,8 @@ This project is still being worked on. For right now this tool only supports Lin
 gcc -o main main.c
 ./main
 ```
+# Screenshots
+![image](https://user-images.githubusercontent.com/78043996/118904665-5866fd00-b8e8-11eb-862b-f04b717dc5ed.png)
 
 # Credits
 [https://github.com/0x1CA3]
