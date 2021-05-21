@@ -1,5 +1,5 @@
 # AutoEnum
-An enumeration tool for post exploitation that you can use to gather information about your target machine and its network.
+An enumeration tool for post exploitation that you can use to gather information about your target machine and its network. You can also use this tool to check for possible paths that can lead to privilege escaltion and to directly attempt privlege escalation.
 
 ![image](https://user-images.githubusercontent.com/78043996/118904311-9c0d3700-b8e7-11eb-833f-1f3daf18c5c5.png)
 
