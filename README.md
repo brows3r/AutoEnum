@@ -6,6 +6,9 @@ An enumeration tool for post exploitation that you can use to gather information
 # Status - ❌
 This project is still being worked on. For right now this tool only supports Linux systems. I'm planning to add Windows support and much more in the future.
 
+# Update logs
+[5/20/21] - Added alot more options and a menu for one-liners. Adding more soon.
+
 # How to use
 ```
 gcc -o main main.c
