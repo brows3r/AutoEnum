@@ -8,6 +8,7 @@ This project is still being worked on. For right now this tool only supports Lin
 
 # Update logs
 [5/24/21] - Fixed some issues and added extra options.
+
 [5/20/21] - Added alot more options and a menu for one-liners. Adding more soon.
 
 # How to use
